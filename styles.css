@@ -115,6 +115,10 @@ body.index {
     transform: translate(-50%, -50%);
 }
 
+#mirrored-object {
+    transform: scaleX(-1); /* horizontal mirror (left-right) */
+}
+
 /* Footer */
 footer {
     text-align: center;
@@ -133,6 +137,7 @@ footer {
 #exhibitions body { background: linear-gradient(120deg, #2f2b0f, #3c3c11); }
 #talks body { background: linear-gradient(120deg, #2b1b0f, #3c2f11); }
 #publications body { background: linear-gradient(120deg, #0f2b1b, #113c2f); }
+
 
 
 
