@@ -1,0 +1,130 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(120deg, #0d0d0d, #1a1a1a);
+    color: #f0f0f0;
+    overflow-x: hidden;
+    transition: background 0.5s;
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 1em 0;
+}
+
+.navbar li {
+    margin: 0 1.2em;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    transition: color 0.3s, transform 0.2s;
+}
+
+.navbar a:hover {
+    color: #f39c12;
+    transform: scale(1.1);
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 2em;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: #ffdd00;
+    text-shadow: 2px 2px 12px #000;
+    margin-bottom: 0.5em;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    color: #ddd;
+    text-shadow: 1px 1px 6px #000;
+}
+
+/* Flying Objects */
+.flying-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.flying-object {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    opacity: 0.8;
+    box-shadow: 0 0 15px rgba(255,255,255,0.6);
+    animation: float 12s infinite linear;
+}
+
+/* Color-coded flying objects per page */
+#index .flying-object { background: #f39c12; }
+#bio .flying-object { background: #1abc9c; }
+#contact .flying-object { background: #e74c3c; }
+#inspiration .flying-object { background: #9b59b6; }
+#performances .flying-object { background: #3498db; }
+#exhibitions .flying-object { background: #f1c40f; }
+#talks .flying-object { background: #e67e22; }
+#publications .flying-object { background: #2ecc71; }
+
+/* Float animation */
+@keyframes float {
+    0%   { transform: translate(0,0) rotate(0deg); }
+    25%  { transform: translate(250px, -150px) rotate(90deg); }
+    50%  { transform: translate(-200px, -300px) rotate(180deg); }
+    75%  { transform: translate(150px, -100px) rotate(270deg); }
+    100% { transform: translate(0,0) rotate(360deg); }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1.5em;
+    background: rgba(20, 20, 20, 0.9);
+    box-shadow: 0 -2px 15px rgba(0,0,0,0.5);
+    font-size: 0.9rem;
+}
+
+/* Page-specific subtle gradients */
+#index body { background: linear-gradient(120deg, #0d0d0d, #1a1a1a); }
+#bio body { background: linear-gradient(120deg, #0f1c2b, #112f3c); }
+#contact body { background: linear-gradient(120deg, #2b0f0f, #3c1111); }
+#inspiration body { background: linear-gradient(120deg, #1b0f2b, #2f113c); }
+#performances body { background: linear-gradient(120deg, #0f1b2b, #113c2f); }
+#exhibitions body { background: linear-gradient(120deg, #2f2b0f, #3c3c11); }
+#talks body { background: linear-gradient(120deg, #2b1b0f, #3c2f11); }
+#publications body { background: linear-gradient(120deg, #0f2b1b, #113c2f); }
