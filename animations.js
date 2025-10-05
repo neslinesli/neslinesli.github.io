@@ -5,15 +5,19 @@ const footerHeight = document.querySelector('footer').offsetHeight;
 objects.forEach(obj => {
     let isDragging = false;
     let offsetX, offsetY;
-    let velocity = {x:0, y:0};
+    let velocity = {x: (Math.random()-0.5)*4, y: (Math.random()-0.5)*4};
+    let rotation = Math.random()*360;
+    let rotationSpeed = (Math.random()-0.5)*5;
 
-    const objSize = 50;
+    const objWidth = obj.offsetWidth;
+    const objHeight = obj.offsetHeight;
+    const maxX = window.innerWidth - objWidth;
+    const maxY = window.innerHeight - footerHeight - objHeight;
 
-    // Random initial position inside allowed area
-    const maxY = window.innerHeight - footerHeight - objSize;
-    const maxX = window.innerWidth - objSize;
-    obj.style.left = Math.random() * maxX + 'px';
-    obj.style.top = (navbarHeight + Math.random() * (maxY - navbarHeight)) + 'px';
+    // Random start position
+    obj.style.left = Math.random()*maxX + 'px';
+    obj.style.top  = (navbarHeight + Math.random()*(maxY-navbarHeight)) + 'px';
+    obj.style.transform = `rotate(${rotation}deg)`;
 
     obj.addEventListener('mousedown', e => {
         isDragging = true;
@@ -27,9 +31,9 @@ objects.forEach(obj => {
         let x = e.clientX - offsetX;
         let y = e.clientY - offsetY;
 
-        // constrain within viewport excluding navbar & footer
-        x = Math.min(Math.max(0, x), maxX);
-        y = Math.min(Math.max(navbarHeight, y), maxY);
+        // constrain within viewport
+        x = Math.min(Math.max(0,x), maxX);
+        y = Math.min(Math.max(navbarHeight,y), maxY);
 
         velocity.x = x - obj.offsetLeft;
         velocity.y = y - obj.offsetTop;
@@ -42,18 +46,24 @@ objects.forEach(obj => {
 
     function animate() {
         if(!isDragging){
-            let x = obj.offsetLeft + velocity.x * 0.9;
-            let y = obj.offsetTop  + velocity.y * 0.9;
+            let x = obj.offsetLeft + velocity.x;
+            let y = obj.offsetTop + velocity.y;
 
-            // bounce off edges
+            // bounce walls
             if(x < 0 || x > maxX) velocity.x *= -1;
             if(y < navbarHeight || y > maxY) velocity.y *= -1;
 
             obj.style.left = Math.min(Math.max(0,x), maxX) + 'px';
             obj.style.top  = Math.min(Math.max(navbarHeight,y), maxY) + 'px';
 
-            velocity.x *= 0.95;
-            velocity.y *= 0.95;
+            // apply rotation
+            rotation += rotationSpeed;
+            obj.style.transform = `rotate(${rotation}deg)`;
+
+            // friction
+            velocity.x *= 0.98;
+            velocity.y *= 0.98;
+            rotationSpeed *= 0.98;
         }
         requestAnimationFrame(animate);
     }
