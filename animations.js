@@ -2,6 +2,8 @@ const dragItem = document.getElementById("draggable");
 let active = false;
 let x = 100, y = 100;
 let vx = 0, vy = 0;
+let rotation = 0;
+let vr = (Math.random()-0.5) * 5; // random initial rotation speed
 const damping = 0.9;
 const friction = 0.995;
 let lastPositions = [];
@@ -35,19 +37,16 @@ window.addEventListener("mousemove", e => {
   if (active) {
     x += e.movementX;
     y += e.movementY;
-    setPos(x, y);
+    setPos(x, y, rotation);
     makeTrail();
 
     lastPositions.push({x: e.clientX, y: e.clientY, t: Date.now()});
     if (lastPositions.length > 5) lastPositions.shift();
-
-    // extra dots for comet effect
-    makeTrail(); 
   }
 });
 
-function setPos(x, y) {
-  dragItem.style.transform = `translate(${x}px, ${y}px)`;
+function setPos(x, y, r) {
+  dragItem.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
 }
 
 function makeTrail() {
@@ -61,7 +60,6 @@ function makeTrail() {
   dot.style.top = `${cy}px`;
   document.body.appendChild(dot);
 
-  // Fade and shrink gradually
   setTimeout(() => {
     dot.style.transition = "opacity 2s ease-out, transform 2s ease-out";
     dot.style.opacity = "0";
@@ -71,27 +69,36 @@ function makeTrail() {
 }
 
 function animate() {
+  const width = dragItem.offsetWidth;
+  const height = dragItem.offsetHeight;
+
   if (!active) {
     x += vx;
     y += vy;
 
-    if (x < 0) { x = 0; vx = -vx * damping; }
-    if (y < 0) { y = 0; vy = -vy * damping; }
-    if (x + dragItem.offsetWidth > window.innerWidth) {
-      x = window.innerWidth - dragItem.offsetWidth;
-      vx = -vx * damping;
+    rotation += vr;
+
+    // bounce boundaries
+    if (x < 0) { x = 0; vx = -vx * damping; vr = -vr * damping; }
+    if (y < 0) { y = 0; vy = -vy * damping; vr = -vr * damping; }
+    if (x + width > window.innerWidth) { 
+      x = window.innerWidth - width; 
+      vx = -vx * damping; 
+      vr = -vr * damping; 
     }
-    if (y + dragItem.offsetHeight > window.innerHeight) {
-      y = window.innerHeight - dragItem.offsetHeight;
-      vy = -vy * damping;
+    if (y + height > window.innerHeight) { 
+      y = window.innerHeight - height; 
+      vy = -vy * damping; 
+      vr = -vr * damping; 
     }
 
     vx *= friction;
     vy *= friction;
+    vr *= friction;
 
-    setPos(x, y);
+    setPos(x, y, rotation);
 
-    // multiple dots for smooth comet
+    // comet effect
     makeTrail();
     makeTrail();
   }
