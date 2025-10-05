@@ -1,78 +1,102 @@
-const objects = document.querySelectorAll('.flying-object');
-const navbarHeight = document.querySelector('.navbar').offsetHeight;
-const footerHeight = document.querySelector('footer').offsetHeight;
+const dragItem = document.getElementById("draggable");
+let active = false;
+let x = 100, y = 100;
+let vx = 0, vy = 0;
+const damping = 0.9;
+const friction = 0.995;
+let lastPositions = [];
 
-objects.forEach(obj => {
-    let isDragging = false;
-    let offsetX = 0, offsetY = 0;
-    let prevMouse = {x:0, y:0};
-    let velocity = {x:(Math.random()-0.5)*4, y:(Math.random()-0.5)*4};
-    let rotation = Math.random()*360;
-    let rotationSpeed = (Math.random()-0.5)*5;
-
-    const objWidth = obj.offsetWidth;
-    const objHeight = obj.offsetHeight;
-
-    function getMaxX() { return window.innerWidth - objWidth; }
-    function getMaxY() { return window.innerHeight - footerHeight - objHeight; }
-
-    // Random start
-    obj.style.left = Math.random()*getMaxX() + 'px';
-    obj.style.top  = (navbarHeight + Math.random()*(getMaxY()-navbarHeight)) + 'px';
-    obj.style.transform = `rotate(${rotation}deg)`;
-
-    obj.addEventListener('mousedown', e => {
-        isDragging = true;
-        offsetX = e.clientX - obj.offsetLeft;
-        offsetY = e.clientY - obj.offsetTop;
-        prevMouse.x = e.clientX;
-        prevMouse.y = e.clientY;
-    });
-
-    document.addEventListener('mousemove', e => {
-        if(!isDragging) return;
-
-        let x = e.clientX - offsetX;
-        let y = e.clientY - offsetY;
-
-        x = Math.min(Math.max(0,x), getMaxX());
-        y = Math.min(Math.max(navbarHeight,y), getMaxY());
-
-        // velocity = delta mouse movement
-        velocity.x = e.clientX - prevMouse.x;
-        velocity.y = e.clientY - prevMouse.y;
-        prevMouse.x = e.clientX;
-        prevMouse.y = e.clientY;
-
-        obj.style.left = x + 'px';
-        obj.style.top  = y + 'px';
-    });
-
-    document.addEventListener('mouseup', () => { isDragging = false; });
-
-    function animate() {
-        if(!isDragging){
-            let x = obj.offsetLeft + velocity.x;
-            let y = obj.offsetTop  + velocity.y;
-
-            // bounce
-            if(x < 0) { x=0; velocity.x*=-1; }
-            if(x > getMaxX()) { x=getMaxX(); velocity.x*=-1; }
-            if(y < navbarHeight) { y=navbarHeight; velocity.y*=-1; }
-            if(y > getMaxY()) { y=getMaxY(); velocity.y*=-1; }
-
-            obj.style.left = x + 'px';
-            obj.style.top  = y + 'px';
-
-            rotation += rotationSpeed;
-            obj.style.transform = `rotate(${rotation}deg)`;
-
-            // friction
-            velocity.x *= 0.95;
-            velocity.y *= 0.95;
-            rotationSpeed *= 0.95;
-        }
-        requestAnimationFrame(animate);
-    }
-    animate();
+// Drag start
+dragItem.addEventListener("mousedown", e => {
+  active = true;
+  dragItem.style.cursor = "grabbing";
+  lastPositions = [{x: e.clientX, y: e.clientY, t: Date.now()}];
 });
+
+// Drag end
+window.addEventListener("mouseup", e => {
+  if (!active) return;
+  active = false;
+  dragItem.style.cursor = "grab";
+
+  const now = Date.now();
+  const recent = lastPositions.filter(p => now - p.t <= 50);
+  if (recent.length >= 2) {
+    const first = recent[0];
+    const last = recent[recent.length - 1];
+    vx = (last.x - first.x) / ((last.t - first.t) / 16);
+    vy = (last.y - first.y) / ((last.t - first.t) / 16);
+  }
+  lastPositions = [];
+});
+
+// Dragging
+window.addEventListener("mousemove", e => {
+  if (active) {
+    x += e.movementX;
+    y += e.movementY;
+    setPos(x, y);
+    makeTrail();
+
+    lastPositions.push({x: e.clientX, y: e.clientY, t: Date.now()});
+    if (lastPositions.length > 5) lastPositions.shift();
+
+    // extra dots for comet effect
+    makeTrail(); 
+  }
+});
+
+function setPos(x, y) {
+  dragItem.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+function makeTrail() {
+  const rect = dragItem.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+
+  const dot = document.createElement("div");
+  dot.className = "trail";
+  dot.style.left = `${cx}px`;
+  dot.style.top = `${cy}px`;
+  document.body.appendChild(dot);
+
+  // Fade and shrink gradually
+  setTimeout(() => {
+    dot.style.transition = "opacity 2s ease-out, transform 2s ease-out";
+    dot.style.opacity = "0";
+    dot.style.transform += " scale(0.1)";
+  }, 30);
+  setTimeout(() => dot.remove(), 2100);
+}
+
+function animate() {
+  if (!active) {
+    x += vx;
+    y += vy;
+
+    if (x < 0) { x = 0; vx = -vx * damping; }
+    if (y < 0) { y = 0; vy = -vy * damping; }
+    if (x + dragItem.offsetWidth > window.innerWidth) {
+      x = window.innerWidth - dragItem.offsetWidth;
+      vx = -vx * damping;
+    }
+    if (y + dragItem.offsetHeight > window.innerHeight) {
+      y = window.innerHeight - dragItem.offsetHeight;
+      vy = -vy * damping;
+    }
+
+    vx *= friction;
+    vy *= friction;
+
+    setPos(x, y);
+
+    // multiple dots for smooth comet
+    makeTrail();
+    makeTrail();
+  }
+
+  requestAnimationFrame(animate);
+}
+
+animate();
