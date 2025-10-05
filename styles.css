@@ -13,6 +13,15 @@ body {
     transition: background 0.5s;
 }
 
+body.index {
+    background-image: url('images/euclidpart.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff; /* ensure text is readable over bright background */
+}
+
+
 /* Navbar */
 .navbar {
     position: fixed;
@@ -118,6 +127,7 @@ footer {
 #exhibitions body { background: linear-gradient(120deg, #2f2b0f, #3c3c11); }
 #talks body { background: linear-gradient(120deg, #2b1b0f, #3c2f11); }
 #publications body { background: linear-gradient(120deg, #0f2b1b, #113c2f); }
+
 
 
 
