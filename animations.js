@@ -51,8 +51,8 @@ function setPos(x, y, r) {
 
 function makeTrail() {
   const rect = dragItem.getBoundingClientRect();
-  const cx = rect.left + rect.width / 2;
-  const cy = rect.top + rect.height / 2;
+  const cx = rect.left + rect.width / 2 + window.scrollX;
+  const cy = rect.top + rect.height / 2 + window.scrollY;
 
   const dot = document.createElement("div");
   dot.className = "trail";
@@ -107,3 +107,4 @@ function animate() {
 }
 
 animate();
+
