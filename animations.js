@@ -37,6 +37,10 @@ window.addEventListener("mousemove", e => {
   if (active) {
     x += e.movementX;
     y += e.movementY;
+
+    // rotation based on horizontal mouse movement
+    rotation += e.movementX * 0.5;  // adjust multiplier for sensitivity
+
     setPos(x, y, rotation);
     makeTrail();
 
@@ -107,4 +111,5 @@ function animate() {
 }
 
 animate();
+
 
