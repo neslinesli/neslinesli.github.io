@@ -73,63 +73,31 @@ body {
 }
 
 /* Flying Objects */
-.flying-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1000;
+
+#draggable {
+  width: 120px;
+  height: 280px;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  cursor: grab;
+  user-select: none;
 }
-
-.flying-object {
-    position: absolute;
-    width: auto;
-    height: 80px; /* adjust per your layout */
-    cursor: grab;
-    user-select: none;
-    pointer-events: auto;
-    transform-origin: center;
-    transition: box-shadow 0.2s;
+#draggable img {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
-
-.flying-object:active {
-    cursor: grabbing;
-    box-shadow: 0 0 25px rgba(255,255,255,0.9);
-}
-
-/* Trail effect using shadow + opacity */
-.flying-object::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    box-shadow: 0 0 15px rgba(255,255,255,0.5);
-    opacity: 0.4;
-    pointer-events: none;
-}
-
-
-
-/* Color-coded flying objects per page */
-#index .flying-object { background: #f39c12; }
-#bio .flying-object { background: #1abc9c; }
-#contact .flying-object { background: #e74c3c; }
-#inspiration .flying-object { background: #9b59b6; }
-#performances .flying-object { background: #3498db; }
-#exhibitions .flying-object { background: #f1c40f; }
-#talks .flying-object { background: #e67e22; }
-#publications .flying-object { background: #2ecc71; }
-
-/* Float animation */
-@keyframes float {
-    0%   { transform: translate(0,0) rotate(0deg); }
-    25%  { transform: translate(250px, -150px) rotate(90deg); }
-    50%  { transform: translate(-200px, -300px) rotate(180deg); }
-    75%  { transform: translate(150px, -100px) rotate(270deg); }
-    100% { transform: translate(0,0) rotate(360deg); }
+.trail {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: yellow;
+  pointer-events: none;
+  opacity: 0.5;
+  filter: blur(4px);
+  transform: translate(-50%, -50%);
 }
 
 /* Footer */
@@ -150,6 +118,7 @@ footer {
 #exhibitions body { background: linear-gradient(120deg, #2f2b0f, #3c3c11); }
 #talks body { background: linear-gradient(120deg, #2b1b0f, #3c2f11); }
 #publications body { background: linear-gradient(120deg, #0f2b1b, #113c2f); }
+
 
 
 
