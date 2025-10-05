@@ -5,7 +5,8 @@ const footerHeight = document.querySelector('footer').offsetHeight;
 objects.forEach(obj => {
     let isDragging = false;
     let offsetX = 0, offsetY = 0;
-    let velocity = {x: (Math.random()-0.5)*4, y: (Math.random()-0.5)*4};
+    let prevMouse = {x:0, y:0};
+    let velocity = {x:(Math.random()-0.5)*4, y:(Math.random()-0.5)*4};
     let rotation = Math.random()*360;
     let rotationSpeed = (Math.random()-0.5)*5;
 
@@ -24,19 +25,24 @@ objects.forEach(obj => {
         isDragging = true;
         offsetX = e.clientX - obj.offsetLeft;
         offsetY = e.clientY - obj.offsetTop;
-        velocity = {x:0, y:0};
+        prevMouse.x = e.clientX;
+        prevMouse.y = e.clientY;
     });
 
     document.addEventListener('mousemove', e => {
         if(!isDragging) return;
+
         let x = e.clientX - offsetX;
         let y = e.clientY - offsetY;
 
         x = Math.min(Math.max(0,x), getMaxX());
         y = Math.min(Math.max(navbarHeight,y), getMaxY());
 
-        velocity.x = x - obj.offsetLeft;
-        velocity.y = y - obj.offsetTop;
+        // velocity = delta mouse movement
+        velocity.x = e.clientX - prevMouse.x;
+        velocity.y = e.clientY - prevMouse.y;
+        prevMouse.x = e.clientX;
+        prevMouse.y = e.clientY;
 
         obj.style.left = x + 'px';
         obj.style.top  = y + 'px';
@@ -58,11 +64,10 @@ objects.forEach(obj => {
             obj.style.left = x + 'px';
             obj.style.top  = y + 'px';
 
-            // rotation
             rotation += rotationSpeed;
             obj.style.transform = `rotate(${rotation}deg)`;
 
-            // friction slows down
+            // friction
             velocity.x *= 0.95;
             velocity.y *= 0.95;
             rotationSpeed *= 0.95;
