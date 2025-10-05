@@ -1,115 +1,124 @@
-const dragItem = document.getElementById("draggable");
-let active = false;
-let x = 100, y = 100;
-let vx = 0, vy = 0;
-let rotation = 0;
-let vr = (Math.random()-0.5) * 5; // random initial rotation speed
+const objects = document.querySelectorAll('.flying-object');
 const damping = 0.9;
 const friction = 0.995;
-let lastPositions = [];
+const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+const footerHeight = document.querySelector('footer')?.offsetHeight || 0;
 
-// Drag start
-dragItem.addEventListener("mousedown", e => {
-  active = true;
-  dragItem.style.cursor = "grabbing";
-  lastPositions = [{x: e.clientX, y: e.clientY, t: Date.now()}];
+// Initialize each object
+objects.forEach(obj => {
+    obj.dataset.x = Math.random() * (window.innerWidth - obj.offsetWidth);
+    obj.dataset.y = navbarHeight + Math.random() * (window.innerHeight - footerHeight - obj.offsetHeight - navbarHeight);
+    obj.dataset.vx = (Math.random() - 0.5) * 4;
+    obj.dataset.vy = (Math.random() - 0.5) * 4;
+    obj.dataset.rotation = Math.random() * 360;
+    obj.dataset.vr = (Math.random() - 0.5) * 5;
+    obj.dataset.active = "false";
+
+    obj.style.transform = `translate(${obj.dataset.x}px, ${obj.dataset.y}px) rotate(${obj.dataset.rotation}deg)`;
+
+    // Drag handlers
+    obj.addEventListener("mousedown", e => {
+        obj.dataset.active = "true";
+        obj.style.cursor = "grabbing";
+        obj.dataset.offsetX = e.clientX - parseFloat(obj.dataset.x);
+        obj.dataset.offsetY = e.clientY - parseFloat(obj.dataset.y);
+        obj.dataset.lastX = e.clientX;
+        obj.dataset.lastY = e.clientY;
+    });
 });
 
-// Drag end
-window.addEventListener("mouseup", e => {
-  if (!active) return;
-  active = false;
-  dragItem.style.cursor = "grab";
-
-  const now = Date.now();
-  const recent = lastPositions.filter(p => now - p.t <= 50);
-  if (recent.length >= 2) {
-    const first = recent[0];
-    const last = recent[recent.length - 1];
-    vx = (last.x - first.x) / ((last.t - first.t) / 16);
-    vy = (last.y - first.y) / ((last.t - first.t) / 16);
-  }
-  lastPositions = [];
-});
-
-// Dragging
+// Mouse events
 window.addEventListener("mousemove", e => {
-  if (active) {
-    x += e.movementX;
-    y += e.movementY;
+    objects.forEach(obj => {
+        if (obj.dataset.active === "true") {
+            const x = e.clientX - obj.dataset.offsetX;
+            const y = e.clientY - obj.dataset.offsetY;
 
-    // rotation based on horizontal mouse movement
-    rotation += e.movementX * 0.5;  // adjust multiplier for sensitivity
+            obj.dataset.vx = e.clientX - obj.dataset.lastX;
+            obj.dataset.vy = e.clientY - obj.dataset.lastY;
+            obj.dataset.lastX = e.clientX;
+            obj.dataset.lastY = e.clientY;
 
-    setPos(x, y, rotation);
-    makeTrail();
+            // Rotate while dragging
+            obj.dataset.rotation = parseFloat(obj.dataset.rotation) + e.movementX * 0.5;
 
-    lastPositions.push({x: e.clientX, y: e.clientY, t: Date.now()});
-    if (lastPositions.length > 5) lastPositions.shift();
-  }
+            obj.dataset.x = x;
+            obj.dataset.y = y;
+            obj.style.transform = `translate(${x}px, ${y}px) rotate(${obj.dataset.rotation}deg)`;
+            makeTrail(obj);
+        }
+    });
 });
 
-function setPos(x, y, r) {
-  dragItem.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
+window.addEventListener("mouseup", e => {
+    objects.forEach(obj => {
+        if (obj.dataset.active === "true") {
+            obj.dataset.active = "false";
+            obj.style.cursor = "grab";
+            // velocity already updated during drag
+        }
+    });
+});
+
+// Trail
+function makeTrail(obj) {
+    const rect = obj.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2 + window.scrollX;
+    const cy = rect.top + rect.height / 2 + window.scrollY;
+
+    const dot = document.createElement("div");
+    dot.className = "trail";
+    dot.style.left = `${cx}px`;
+    dot.style.top = `${cy}px`;
+    document.body.appendChild(dot);
+
+    setTimeout(() => {
+        dot.style.transition = "opacity 2s ease-out, transform 2s ease-out";
+        dot.style.opacity = "0";
+        dot.style.transform += " scale(0.1)";
+    }, 30);
+    setTimeout(() => dot.remove(), 2100);
 }
 
-function makeTrail() {
-  const rect = dragItem.getBoundingClientRect();
-  const cx = rect.left + rect.width / 2 + window.scrollX;
-  const cy = rect.top + rect.height / 2 + window.scrollY;
-
-  const dot = document.createElement("div");
-  dot.className = "trail";
-  dot.style.left = `${cx}px`;
-  dot.style.top = `${cy}px`;
-  document.body.appendChild(dot);
-
-  setTimeout(() => {
-    dot.style.transition = "opacity 2s ease-out, transform 2s ease-out";
-    dot.style.opacity = "0";
-    dot.style.transform += " scale(0.1)";
-  }, 30);
-  setTimeout(() => dot.remove(), 2100);
-}
-
+// Animation loop
 function animate() {
-  const width = dragItem.offsetWidth;
-  const height = dragItem.offsetHeight;
+    objects.forEach(obj => {
+        if (obj.dataset.active === "false") {
+            let x = parseFloat(obj.dataset.x);
+            let y = parseFloat(obj.dataset.y);
+            let vx = parseFloat(obj.dataset.vx) * friction;
+            let vy = parseFloat(obj.dataset.vy) * friction;
+            let rotation = parseFloat(obj.dataset.rotation) + parseFloat(obj.dataset.vr);
+            let vr = parseFloat(obj.dataset.vr) * friction;
 
-  if (!active) {
-    x += vx;
-    y += vy;
+            const width = obj.offsetWidth;
+            const height = obj.offsetHeight;
+            const maxX = window.innerWidth - width;
+            const maxY = window.innerHeight - footerHeight - height;
 
-    rotation += vr;
+            x += vx;
+            y += vy;
+            rotation += vr;
 
-    // bounce boundaries
-    if (x < 0) { x = 0; vx = -vx * damping; vr = -vr * damping; }
-    if (y < 0) { y = 0; vy = -vy * damping; vr = -vr * damping; }
-    if (x + width > window.innerWidth) { 
-      x = window.innerWidth - width; 
-      vx = -vx * damping; 
-      vr = -vr * damping; 
-    }
-    if (y + height > window.innerHeight) { 
-      y = window.innerHeight - height; 
-      vy = -vy * damping; 
-      vr = -vr * damping; 
-    }
+            // Bounce
+            if (x < 0) { x=0; vx=-vx*damping; vr=-vr*damping; }
+            if (y < navbarHeight) { y=navbarHeight; vy=-vy*damping; vr=-vr*damping; }
+            if (x > maxX) { x=maxX; vx=-vx*damping; vr=-vr*damping; }
+            if (y > maxY) { y=maxY; vy=-vy*damping; vr=-vr*damping; }
 
-    vx *= friction;
-    vy *= friction;
-    vr *= friction;
+            obj.dataset.x = x;
+            obj.dataset.y = y;
+            obj.dataset.vx = vx;
+            obj.dataset.vy = vy;
+            obj.dataset.rotation = rotation;
+            obj.dataset.vr = vr;
 
-    setPos(x, y, rotation);
+            obj.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
+            makeTrail(obj);
+        }
+    });
 
-    // comet effect
-    makeTrail();
-    makeTrail();
-  }
-
-  requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
 }
 
 animate();
-
-
