@@ -262,6 +262,8 @@ footer {
 .bio-text {
     max-width: 700px;
     line-height: 1.6;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 @media (min-width: 768px) {
@@ -289,6 +291,7 @@ footer {
 .inline-svg:hover {
     transform: scale(1.1);
 }
+
 
 
 
