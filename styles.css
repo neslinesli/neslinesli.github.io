@@ -7,7 +7,7 @@
 }
 
 body {
-    background: linear-gradient(120deg, #a64ca6, #4169e1); /* bright purple to royal blue */
+    background: linear-gradient(120deg, #8B0BF4, #170BF4); /* bright purple to royal blue */
     color: #f0f0f0;
     overflow-x: hidden;
     transition: background 0.5s;
@@ -291,6 +291,7 @@ footer {
 .inline-svg:hover {
     transform: scale(1.1);
 }
+
 
 
 
