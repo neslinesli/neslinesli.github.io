@@ -93,7 +93,7 @@ body.index {
 
 .flying-object {
     position: absolute;
-    width: 80px;      /* adjust size per object */
+    width: 160px;      /* adjust size per object */
     height: auto;
     cursor: grab;
     pointer-events: auto;
@@ -104,21 +104,6 @@ body.index {
 .flying-object:active {
     cursor: grabbing;
 }
-
-.flying-object2 {
-    position: absolute;
-    width: 150px;      /* adjust size per object */
-    height: auto;
-    cursor: grab;
-    pointer-events: auto;
-    transform-origin: center;
-    user-select: none;
-}
-
-.flying-object2:active {
-    cursor: grabbing;
-}
-
 
 .trail {
     position: absolute;
@@ -306,6 +291,7 @@ footer {
 .inline-svg:hover {
     transform: scale(1.1);
 }
+
 
 
 
