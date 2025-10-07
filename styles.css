@@ -186,6 +186,46 @@ footer {
     opacity: 0.9;
 }
 
+.pub-section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: #fff;
+}
+
+.pub-item {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 25px 30px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pub-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+.pub-title {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+
+.pub-author,
+.pub-journal,
+.pub-year {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin: 3px 0;
+}
+
+.pub-desc {
+  margin-top: 12px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
 
 
 
