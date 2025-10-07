@@ -1,6 +1,6 @@
 const objects = document.querySelectorAll('.flying-object');
-const damping = 0.9;
-const friction = 0.995;
+const damping = 0.5;
+const friction = 0.295;
 const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0;
 const footerHeight = document.querySelector('footer')?.offsetHeight || 0;
 
@@ -122,3 +122,4 @@ function animate() {
 }
 
 animate();
+
