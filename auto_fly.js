@@ -46,7 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
     obj.style.transform = `translate(${s.x}px, ${s.y}px) rotate(${s.rot}deg)`;
   });
 
-  requestAnimationFrame(animate);
+  setInterval(animate, 30); // ~33 FPS, smoother performance
+
 }
 
   animate();
