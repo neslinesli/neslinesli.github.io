@@ -1,22 +1,22 @@
 const objects = document.querySelectorAll('.flying-object');
-const damping = 0.5;
-const friction = 0.295;
+const damping = 0.97;     // retains more energy on bounce
+const friction = 0.9995;  // very light decay
+const speedBoost = 1.8;   // multiplies initial throw speed
 const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0;
 const footerHeight = document.querySelector('footer')?.offsetHeight || 0;
 
-// Initialize each object
+// Initialize
 objects.forEach(obj => {
     obj.dataset.x = Math.random() * (window.innerWidth - obj.offsetWidth);
     obj.dataset.y = navbarHeight + Math.random() * (window.innerHeight - footerHeight - obj.offsetHeight - navbarHeight);
-    obj.dataset.vx = (Math.random() - 0.5) * 4;
-    obj.dataset.vy = (Math.random() - 0.5) * 4;
+    obj.dataset.vx = (Math.random() - 0.5) * 6;
+    obj.dataset.vy = (Math.random() - 0.5) * 6;
     obj.dataset.rotation = Math.random() * 360;
     obj.dataset.vr = (Math.random() - 0.5) * 5;
     obj.dataset.active = "false";
 
     obj.style.transform = `translate(${obj.dataset.x}px, ${obj.dataset.y}px) rotate(${obj.dataset.rotation}deg)`;
 
-    // Drag handlers
     obj.addEventListener("mousedown", e => {
         obj.dataset.active = "true";
         obj.style.cursor = "grabbing";
@@ -27,21 +27,19 @@ objects.forEach(obj => {
     });
 });
 
-// Mouse events
+// Mouse move
 window.addEventListener("mousemove", e => {
     objects.forEach(obj => {
         if (obj.dataset.active === "true") {
             const x = e.clientX - obj.dataset.offsetX;
             const y = e.clientY - obj.dataset.offsetY;
 
-            obj.dataset.vx = e.clientX - obj.dataset.lastX;
-            obj.dataset.vy = e.clientY - obj.dataset.lastY;
+            obj.dataset.vx = (e.clientX - obj.dataset.lastX) * speedBoost;
+            obj.dataset.vy = (e.clientY - obj.dataset.lastY) * speedBoost;
             obj.dataset.lastX = e.clientX;
             obj.dataset.lastY = e.clientY;
 
-            // Rotate while dragging
-            obj.dataset.rotation = parseFloat(obj.dataset.rotation) + e.movementX * 0.5;
-
+            obj.dataset.rotation = parseFloat(obj.dataset.rotation) + e.movementX * 0.8;
             obj.dataset.x = x;
             obj.dataset.y = y;
             obj.style.transform = `translate(${x}px, ${y}px) rotate(${obj.dataset.rotation}deg)`;
@@ -50,12 +48,12 @@ window.addEventListener("mousemove", e => {
     });
 });
 
-window.addEventListener("mouseup", e => {
+// Mouse up
+window.addEventListener("mouseup", () => {
     objects.forEach(obj => {
         if (obj.dataset.active === "true") {
             obj.dataset.active = "false";
             obj.style.cursor = "grab";
-            // velocity already updated during drag
         }
     });
 });
@@ -73,14 +71,14 @@ function makeTrail(obj) {
     document.body.appendChild(dot);
 
     setTimeout(() => {
-        dot.style.transition = "opacity 2s ease-out, transform 2s ease-out";
+        dot.style.transition = "opacity 1.8s ease-out, transform 1.8s ease-out";
         dot.style.opacity = "0";
         dot.style.transform += " scale(0.1)";
-    }, 30);
-    setTimeout(() => dot.remove(), 2100);
+    }, 20);
+    setTimeout(() => dot.remove(), 1900);
 }
 
-// Animation loop
+// Animate
 function animate() {
     objects.forEach(obj => {
         if (obj.dataset.active === "false") {
@@ -100,11 +98,10 @@ function animate() {
             y += vy;
             rotation += vr;
 
-            // Bounce
-            if (x < 0) { x=0; vx=-vx*damping; vr=-vr*damping; }
-            if (y < navbarHeight) { y=navbarHeight; vy=-vy*damping; vr=-vr*damping; }
-            if (x > maxX) { x=maxX; vx=-vx*damping; vr=-vr*damping; }
-            if (y > maxY) { y=maxY; vy=-vy*damping; vr=-vr*damping; }
+            if (x < 0) { x = 0; vx = -vx * damping; vr = -vr * damping; }
+            if (y < navbarHeight) { y = navbarHeight; vy = -vy * damping; vr = -vr * damping; }
+            if (x > maxX) { x = maxX; vx = -vx * damping; vr = -vr * damping; }
+            if (y > maxY) { y = maxY; vy = -vy * damping; vr = -vr * damping; }
 
             obj.dataset.x = x;
             obj.dataset.y = y;
@@ -122,4 +119,3 @@ function animate() {
 }
 
 animate();
-
