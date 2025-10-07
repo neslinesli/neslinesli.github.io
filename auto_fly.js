@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const objs = document.querySelectorAll('.flying-object');
+  const objs = Array.from(document.querySelectorAll('.flying'));
   const speed = 0.3;
-
+  const maxActive = 6; // keep only 6 moving
+  const activeObjs = objs.slice(0, maxActive);
   const states = Array.from(objs).map(obj => ({
     x: Math.random() * window.innerWidth,
     y: Math.random() * window.innerHeight,
