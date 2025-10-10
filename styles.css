@@ -7,21 +7,6 @@
 }
 
 body {
-    background: linear-gradient(120deg, #8B0BF4, #170BF4); /* bright purple to royal blue */
-    color: #f0f0f0;
-    overflow-x: hidden;
-    transition: background 0.5s;
-}
-
-body.index {
-    background-image: url('images/euclidpart.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: #fff; /* ensure text is readable over bright background */
-}
-
-body.bio {
     background-image: url('images/dawn.jpg');
     background-size: cover;
     background-position: center;
@@ -134,16 +119,6 @@ footer {
     box-shadow: 0 -2px 15px rgba(0,0,0,0.5);
     font-size: 0.9rem;
 }
-
-/* Page-specific subtle gradients */
-#index body { background: linear-gradient(120deg, #0d0d0d, #1a1a1a); }
-#bio body { background: linear-gradient(120deg, #0f1c2b, #112f3c); }
-#contact body { background: linear-gradient(120deg, #2b0f0f, #3c1111); }
-#inspiration body { background: linear-gradient(120deg, #1b0f2b, #2f113c); }
-#performances body { background: linear-gradient(120deg, #0f1b2b, #113c2f); }
-#exhibitions body { background: linear-gradient(120deg, #2f2b0f, #3c3c11); }
-#talks body { background: linear-gradient(120deg, #2b1b0f, #3c2f11); }
-#publications body { background: linear-gradient(120deg, #0f2b1b, #113c2f); }
 
 
 
@@ -379,6 +354,7 @@ footer {
 .inline-svg:hover {
     transform: scale(1.1);
 }
+
 
 
 
