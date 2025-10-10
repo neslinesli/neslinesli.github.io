@@ -9,6 +9,11 @@
 <body class="index">
     <!-- Navigation Bar -->
     <nav class="navbar">
+        <div class="nav-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="bio.html">BIO</a></li>
@@ -42,10 +47,16 @@
               Image credit: ESA / Euclid Consortium / NASA – 
               <a href="https://creativecommons.org/licenses/by-sa/3.0/igo/deed.en" target="_blank">CC BY-SA 3.0 IGO</a>
     </footer>
+<script>
+document.querySelector('.nav-toggle').addEventListener('click', () => {
+  document.querySelector('.navbar ul').classList.toggle('open');
+});
+</script>
 
     <!-- <script src="animations.js"></script> -->
 </body>
 </html>
+
 
 
 
