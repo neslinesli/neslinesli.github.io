@@ -70,7 +70,7 @@ body.index {
 
 .hero h1 {
     font-size: 3rem;
-    color: #ff00f7;
+    color: #0000ff;
     text-shadow: 2px 2px 12px #000;
     margin-bottom: 0.5em;
 }
@@ -280,7 +280,7 @@ footer {
 .contact-section h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #ffdd00;
+    color: #0000ff;
     text-shadow: 1px 1px 6px #000;
 }
 
@@ -372,6 +372,7 @@ footer {
 .inline-svg:hover {
     transform: scale(1.1);
 }
+
 
 
 
