@@ -16,25 +16,44 @@ body {
     color: #fff;
 }
 
-/* Navbar */
+/* Navbar standard flow */
 .navbar {
-    position: fixed;
-    top: 0;
+    position: relative;       /* no fixed */
     width: 100%;
-    background: rgba(10, 10, 10, 0.85);
+    background: rgba(10,10,10,0.85);
     backdrop-filter: blur(5px);
     z-index: 1000;
+    display: flex;
+    justify-content: center;
+    padding: 1em 0;
 }
 
+/* Push body content below navbar */
+body {
+    padding-top: 0;           /* reset if previous fixed padding */
+}
+
+.hero,
+.page-header,
+.media-section,
+.pub-section,
+.bio-section,
+.contact-section {
+    margin-top: 0;           /* content starts below navbar naturally */
+}
+
+/* Navbar links layout */
 .navbar ul {
     display: flex;
     justify-content: center;
     list-style: none;
-    padding: 1em 0;
+    flex-wrap: wrap;          /* allows wrapping on small screens */
+    gap: 1em;
+    padding: 0;
 }
 
 .navbar li {
-    margin: 0 1.2em;
+    margin: 0;
 }
 
 .navbar a {
@@ -44,11 +63,6 @@ body {
     font-size: 1rem;
     letter-spacing: 0.05em;
     transition: color 0.3s, transform 0.2s;
-}
-
-.navbar a:hover {
-    color: #f39c12;
-    transform: scale(1.1);
 }
 
 /* Hero Section */
@@ -325,6 +339,13 @@ footer {
     opacity: 0.8;
 }
 
+/* Construction image */
+.constr {
+    width: 250px;
+    height: 250px;
+}
+
+
 @keyframes sparkle-move {
     from { transform: translate(0, 0) scale(1); opacity: 1; }
     to { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
@@ -333,35 +354,23 @@ footer {
 
 /* Mobile Navbar (fixed vertical, compact) */
 @media (max-width: 768px) {
-    .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1000;
-        background: rgba(10, 10, 10, 0.9);
-        padding: 0.5em 0;
-    }
-
     .navbar ul {
         flex-direction: column;
         align-items: center;
-        max-height: 60vh;          /* prevents full-screen takeover */
-        overflow-y: auto;          /* scroll if too long */
-        margin: 0;
-        padding: 0;
-    }
-
-    .navbar li {
-        margin: 0.4em 0;           /* compact spacing */
+        gap: 0.5em;
     }
 
     .navbar a {
-        font-size: 0.9rem;         /* slightly smaller text */
-        text-align: center;
-        padding: 4px 10px;
+        font-size: 0.9rem;
     }
+
+        .constr {
+        width: 120px;   /* smaller on mobile */
+        height: 120px;
+    }
+
 }
+
 
 
 
