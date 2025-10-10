@@ -22,7 +22,7 @@ body.index {
 }
 
 body.bio {
-    background-image: url('dawn.jpg');
+    background-image: url('images/dawn.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -379,6 +379,7 @@ footer {
 .inline-svg:hover {
     transform: scale(1.1);
 }
+
 
 
 
