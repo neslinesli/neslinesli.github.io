@@ -55,10 +55,25 @@
     <footer>
         <p>&copy; 2025 [Artist Name]. All Rights Reserved.</p>
     </footer>
-
+<script>
+document.querySelector('.sparkle-btn').addEventListener('mousemove', e => {
+    const btn = e.currentTarget;
+    for (let i = 0; i < 6; i++) {
+        const sparkle = document.createElement('span');
+        sparkle.classList.add('sparkle');
+        sparkle.style.left = e.offsetX + 'px';
+        sparkle.style.top = e.offsetY + 'px';
+        sparkle.style.setProperty('--dx', (Math.random() - 0.5) * 100 + 'px');
+        sparkle.style.setProperty('--dy', (Math.random() - 0.5) * 100 + 'px');
+        btn.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 600);
+    }
+});
+</script>
     <script src="animations.js"></script>
 </body>
 </html>
+
 
 
 
