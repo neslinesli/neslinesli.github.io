@@ -331,22 +331,35 @@ footer {
 }
 
 
+/* Mobile Navbar (fixed vertical, compact) */
 @media (max-width: 768px) {
-    nav {
-        position: static;            /* removes anchoring */
-        display: flex;
-        flex-direction: row;         /* horizontal layout */
-        flex-wrap: wrap;             /* allows word wrapping */
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(0, 0, 0, 0.6); /* optional for visibility */
-        padding: 5px;
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background: rgba(10, 10, 10, 0.9);
+        padding: 0.5em 0;
     }
 
-    nav a {
-        font-size: 0.85rem;          /* smaller text */
-        margin: 4px 6px;
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+        max-height: 60vh;          /* prevents full-screen takeover */
+        overflow-y: auto;          /* scroll if too long */
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar li {
+        margin: 0.4em 0;           /* compact spacing */
+    }
+
+    .navbar a {
+        font-size: 0.9rem;         /* slightly smaller text */
         text-align: center;
+        padding: 4px 10px;
     }
 }
 
