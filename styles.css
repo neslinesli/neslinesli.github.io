@@ -63,14 +63,14 @@ body {
 .hero h1 {
     font-size: 3rem;
     color: #0000ff;
-    text-shadow: 2px 2px 12px #000;
+    text-shadow: none;
     margin-bottom: 0.5em;
 }
 
 .hero p {
     font-size: 1.3rem;
-    color: #ddd;
-    text-shadow: 1px 1px 6px #000;
+    color: #2208c9;
+    text-shadow: none;
 }
 
 /* Flying Objects */
@@ -354,6 +354,7 @@ footer {
 .inline-svg:hover {
     transform: scale(1.1);
 }
+
 
 
 
