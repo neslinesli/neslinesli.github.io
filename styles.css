@@ -8,10 +8,12 @@
 
 body {
     background-image: url('images/dawn.jpg');
-    background-size: cover;
-    background-position: center;
+    background-size: contain;          /* fits entirely */
+    background-repeat: no-repeat;      /* avoid tiling */
+    background-position: center center;
     background-attachment: fixed;
-    color: #fff; /* ensure text is readable over bright background */
+    background-color: #000;            /* fills empty space */
+    color: #fff;
 }
 
 /* Navbar */
@@ -355,6 +357,17 @@ footer {
     transform: scale(1.1);
 }
 
+  .navbar ul {
+      flex-direction: column;
+      align-items: center;
+      background: rgba(0,0,0,0.9);
+      padding: 0.8em 0;
+  }
+
+  .navbar li {
+      margin: 0.8em 0;
+  }
+}
 
 
 
