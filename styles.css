@@ -70,7 +70,7 @@ body.index {
 
 .hero h1 {
     font-size: 3rem;
-    color: #ffdd00;
+    color: #ff00f7;
     text-shadow: 2px 2px 12px #000;
     margin-bottom: 0.5em;
 }
@@ -372,6 +372,7 @@ footer {
 .inline-svg:hover {
     transform: scale(1.1);
 }
+
 
 
 
