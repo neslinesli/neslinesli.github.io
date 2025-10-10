@@ -129,7 +129,7 @@ footer {
 .page-header {
     text-align: center;
     padding: 60px 20px 20px;
-    color: #fff;
+    color: #2208c9;
 }
 
 .media-section {
@@ -139,7 +139,7 @@ footer {
     max-width: 900px;
     margin: 0 auto;
     padding: 40px 20px;
-    color: #fff;
+    color: #2208c9;
 }
 
 .media-item h2 {
@@ -174,7 +174,7 @@ footer {
   max-width: 800px;
   margin: 0 auto;
   padding: 40px 20px;
-  color: #fff;
+  color: #2208c9;
 }
 
 .pub-item {
@@ -224,7 +224,7 @@ footer {
     max-width: 900px;
     margin: 40px auto;
     padding: 20px;
-    color: #fff;
+    color: #2208c9;
 }
 
 .bio-container {
@@ -257,7 +257,7 @@ footer {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    color: #fff;
+    color: #2208c9;
     text-align: left;
 }
 
@@ -283,7 +283,7 @@ footer {
     border: none;
     border-radius: 8px;
     background: rgba(255,255,255,0.1);
-    color: #fff;
+    color: #2208c9;
     font-size: 1rem;
     outline: none;
     transition: background 0.3s;
@@ -343,6 +343,7 @@ footer {
       margin: 0.8em 0;
   }
 }
+
 
 
 
