@@ -21,6 +21,13 @@ body.index {
     color: #fff; /* ensure text is readable over bright background */
 }
 
+body.bio {
+    background-image: url('dawn.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff; /* ensure text is readable over bright background */
+}
 
 /* Navbar */
 .navbar {
@@ -372,6 +379,7 @@ footer {
 .inline-svg:hover {
     transform: scale(1.1);
 }
+
 
 
 
