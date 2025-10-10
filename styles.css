@@ -279,7 +279,7 @@ footer {
     text-align: center;
     margin-bottom: 20px;
     color: #0000ff;
-    text-shadow: 1px 1px 6px #000;
+    text-shadow: none;
 }
 
 .contact-form label {
@@ -370,6 +370,7 @@ footer {
     }
 
 }
+
 
 
 
