@@ -266,6 +266,87 @@ footer {
     text-justify: inter-word;
 }
 
+.contact-section {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    color: #fff;
+    text-align: left;
+}
+
+.contact-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffdd00;
+    text-shadow: 1px 1px 6px #000;
+}
+
+.contact-form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: background 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    background: rgba(255,255,255,0.2);
+}
+
+.sparkle-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #ffdd00, #f39c12);
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.sparkle-btn:hover {
+    background: linear-gradient(90deg, #ffe44d, #ffb733);
+}
+
+/* Sparkles */
+.sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: white;
+    pointer-events: none;
+    animation: sparkle-move 0.6s ease-out forwards;
+    opacity: 0.8;
+}
+
+@keyframes sparkle-move {
+    from { transform: translate(0, 0) scale(1); opacity: 1; }
+    to { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+}
+
+
 @media (min-width: 768px) {
     .bio-container {
         flex-direction: row;
@@ -291,6 +372,7 @@ footer {
 .inline-svg:hover {
     transform: scale(1.1);
 }
+
 
 
 
