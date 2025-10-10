@@ -332,16 +332,22 @@ footer {
 
 
 @media (max-width: 768px) {
-  .navbar ul {
-      flex-direction: column;
-      align-items: center;
-      background: rgba(0,0,0,0.9);
-      padding: 0.8em 0;
-  }
+    nav {
+        position: static;            /* removes anchoring */
+        display: flex;
+        flex-direction: row;         /* horizontal layout */
+        flex-wrap: wrap;             /* allows word wrapping */
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.6); /* optional for visibility */
+        padding: 5px;
+    }
 
-  .navbar li {
-      margin: 0.8em 0;
-  }
+    nav a {
+        font-size: 0.85rem;          /* smaller text */
+        margin: 4px 6px;
+        text-align: center;
+    }
 }
 
 
