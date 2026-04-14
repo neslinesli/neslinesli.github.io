@@ -348,20 +348,25 @@ footer {
 /* BIOGRAPHY PAGE TWEAKS */
 
 .main-layout {
-    display: flex;
     height: 100vh;
+    position: relative;
 }
 
 /* Left side (artwork area) */
 .left-side {
-    width: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
 }
 
 /* Right side (bio area aligned with pink section) */
 .right-side {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
     width: 30%;
     display: flex;
     justify-content: center;
@@ -375,12 +380,16 @@ footer {
     text-transform: lowercase;
 }
 
-/* Bio box */
 .bio-box {
     width: 90%;
-    background: rgba(255, 255, 255, 0.85); /* slight transparency works well over art */
+    background: rgba(255, 255, 255, 0.55); /* more transparent */
     padding: 20px;
-    box-sizing: border-box;
+}
+
+.bio-box p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: navy;
 }
 
 /* Image */
@@ -389,10 +398,11 @@ footer {
     margin-bottom: 15px;
 }
 
-/* Text */
-.bio-box p {
-    font-size: 0.95rem;
-    line-height: 1.6;
+body.bio {
+    margin: 0;
+    height: 100vh;
+    background: url("bionesli.jpg") no-repeat center center;
+    background-size: cover;
 }
 
 
