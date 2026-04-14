@@ -194,7 +194,7 @@ footer {
 .pub-item {
   background: rgba(255, 255, 255, 0.05);
   padding: 25px 30px;
-  border-radius: 12px;
+  border-radius: 0px; 
   margin-bottom: 40px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
