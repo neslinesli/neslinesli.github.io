@@ -8,11 +8,11 @@
 
 body {
     background-image: url('images/dawn.jpg');
-    background-size: contain;          /* fits entirely */
-    background-repeat: no-repeat;      /* avoid tiling */
+    background-size: cover;       /* fill entire viewport */
+    background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
-    background-color: #000;            /* fills empty space */
+    background-color: #000;
     color: #fff;
 }
 
@@ -358,7 +358,6 @@ footer {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: auto;
 }
 
 /* Right side (bio area aligned with pink section) */
@@ -369,8 +368,8 @@ footer {
     height: 100%;
     width: 30%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 /* Hero text */
@@ -381,9 +380,8 @@ footer {
 }
 
 .bio-box {
-    width: 90%;
-    background: rgba(255, 255, 255, 0.55); /* more transparent */
-    padding: 20px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(6px);
 }
 
 .bio-box p {
@@ -395,6 +393,7 @@ footer {
 /* Image */
 .bio-box img {
     width: 100%;
+    display: block;
     margin-bottom: 15px;
 }
 
