@@ -78,7 +78,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     
-    font-size: 2rem;
+    font-size: 3rem;
     color: #fff;
     text-transform: lowercase;
 }
@@ -90,7 +90,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     
-    font-size: 2rem;   /* middle size */
+    font-size: 3rem;   /* middle size */
     color: #fff;
     text-transform: lowercase;
     letter-spacing: 0.1em;
@@ -98,7 +98,7 @@ body {
 
 .hero h1 {
     font-size: 3rem;
-    color: #0000ff;
+    color: #ffffff;
     text-shadow: none;
     margin-bottom: 0.5em;
 }
