@@ -345,6 +345,56 @@ footer {
     to { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
 }
 
+/* BIOGRAPHY PAGE TWEAKS */
+
+.main-layout {
+    display: flex;
+    height: 100vh;
+}
+
+/* Left side (artwork area) */
+.left-side {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Right side (bio area aligned with pink section) */
+.right-side {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hero text */
+.left-side h1 {
+    font-size: 3rem;
+    font-weight: normal;
+    text-transform: lowercase;
+}
+
+/* Bio box */
+.bio-box {
+    width: 90%;
+    background: rgba(255, 255, 255, 0.85); /* slight transparency works well over art */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Image */
+.bio-box img {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Text */
+.bio-box p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
 
 /* Mobile Navbar (fixed vertical, compact) */
 @media (max-width: 768px) {
