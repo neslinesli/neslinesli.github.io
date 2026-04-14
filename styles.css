@@ -68,12 +68,32 @@ body {
 /* Hero Section */
 .hero {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 2em;
+    position: relative;
+}
+
+/* TOP TEXT (slightly above center) */
+.hero-top {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    font-size: 2rem;
+    color: #fff;
+    text-transform: lowercase;
+}
+
+/* BOTTOM TEXT (slightly below center) */
+.hero-bottom {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    font-size: 2rem;   /* middle size */
+    color: #fff;
+    text-transform: lowercase;
+    letter-spacing: 0.1em;
 }
 
 .hero h1 {
