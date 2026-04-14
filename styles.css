@@ -400,7 +400,6 @@ footer {
 body.bio {
     margin: 0;
     height: 100vh;
-    background: url("bionesli.jpg") no-repeat center center;
     background-size: cover;
 }
 
